@@ -1,7 +1,12 @@
 #ifndef __compose_compose_hpp
 #define __compose_compose_hpp
 
-#include <gtkmm.h>
+#include <gtkmm/scrolledwindow.h>
+#include <gtkmm/paned.h>
+#include <gtkmm/box.h>
+#include <gtkmm/treeview.h>
+#include <gtkmm/textview.h>
+#include <gtkmm/window.h>
 #include "message.hpp"
 
 namespace Compose {

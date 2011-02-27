@@ -1,7 +1,9 @@
 #ifndef __compose_message_hpp
 #define __compose_message_hpp
 
-#include <gtkmm.h>
+#include <gtkmm/treemodelcolumn.h>
+#include <gtkmm/liststore.h>
+#include <gtkmm/textbuffer.h>
 
 namespace Compose {
 

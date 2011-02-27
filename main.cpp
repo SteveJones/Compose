@@ -3,6 +3,7 @@
 #include "message_parser.hpp"
 #include <iterator>
 #include <iostream>
+#include <gtkmm/main.h>
 
 int main(int argc, char *argv[]) {
   Gtk::Main kit(argc, argv);
