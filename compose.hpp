@@ -15,6 +15,7 @@ namespace Compose {
   private:
     Gtk::ScrolledWindow m_header_window;
     Gtk::ScrolledWindow m_body_window;
+    Gtk::VPaned m_paned;
     Gtk::VBox m_box;
     Gtk::TreeView m_header_view;
     Gtk::TextView m_body_view;

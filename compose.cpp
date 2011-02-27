@@ -16,12 +16,15 @@ Compose::Compose::Compose()
 
   m_header_window.add(m_header_view);
   m_header_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC);
-  m_box.pack_start(m_header_window, Gtk::PACK_SHRINK, 0);
+  m_paned.pack1(m_header_window, true, true);
 
   m_body_view.set_wrap_mode(Gtk::WRAP_WORD);
   m_body_window.add(m_body_view);
-  m_body_window.set_policy(Gtk::POLICY_AUTOMATIC, Gtk::POLICY_ALWAYS);
-  m_box.pack_start(m_body_window);
+  m_body_window.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_ALWAYS);
+  m_paned.pack2(m_body_window, true, false);
+
+  m_paned.set_position(200);
+  m_box.pack_start(m_paned);
 
   add(m_box);
 
