@@ -1,6 +1,6 @@
 #include "message_printer.hpp"
 
-#include <ostream>
+#include <iostream>
 
 using namespace Compose;
 
@@ -13,8 +13,34 @@ public:
 
   void operator ()(const Gtk::TreeModel::iterator &i) {
     Gtk::TreeRow row = *i;
-    m_os << row[header_model().m_name] << ": " << row[header_model().m_value] << std::endl;
-   }
+    int pos = 0;
+    Glib::ustring name = row[header_model().m_name];
+    m_os << name << ":";
+    pos += name.length() + 1;
+    Glib::ustring value = row[header_model().m_value];
+
+    Glib::ustring::size_type start;
+    Glib::ustring::size_type end = 0;
+    do {
+      start = value.find_first_not_of(" \t", end);
+      end = value.find_first_of(" \t", start);
+
+      if (end > value.length()) // OMGWTFBBQ
+	end = value.length();
+
+      if (end - start == 0)
+	continue;
+
+      if (pos + (end - start) + 1 > 78) {
+	m_os << std::endl;
+	pos = 0;
+      }
+      m_os << " " << value.substr(start, end - start);
+      pos += (end - start) + 1;
+    } while (end < value.length());
+
+    m_os << std::endl;
+  }
 };
 
 std::ostream &Compose::operator <<(std::ostream &os, Glib::RefPtr<Message> message) {
