@@ -13,6 +13,8 @@ namespace Compose {
     void set_message(Glib::RefPtr<Message> message);
 
   private:
+    Gtk::ScrolledWindow m_header_window;
+    Gtk::ScrolledWindow m_body_window;
     Gtk::VBox m_box;
     Gtk::TreeView m_header_view;
     Gtk::TextView m_body_view;
