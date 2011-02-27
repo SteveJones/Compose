@@ -1,6 +1,8 @@
 #include "compose.hpp"
 #include "message.hpp"
 #include "message_parser.hpp"
+#include "message_printer.hpp"
+
 #include <iterator>
 #include <iostream>
 #include <gtkmm/main.h>
@@ -16,4 +18,6 @@ int main(int argc, char *argv[]) {
   compose.set_message(message);
 
   Gtk::Main::run(compose);
+
+  std::cout << message;
 }

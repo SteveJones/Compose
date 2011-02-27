@@ -1,4 +1,4 @@
-OBJECTS=compose.o main.o message.o
+OBJECTS=compose.o main.o message.o message_printer.o
 CPP=ccache g++
 CPPFLAGS=`pkg-config gtkmm-2.4 --cflags` -DNDEBUG -O3 -Wall
 LDFLAGS=`pkg-config gtkmm-2.4 --libs`
