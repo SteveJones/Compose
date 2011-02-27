@@ -23,8 +23,10 @@ public:
     Glib::ustring::size_type end = 0;
     do {
       start = value.find_first_not_of(" \t", end);
-      end = value.find_first_of(" \t", start);
+      if (start > value.length()) // OMGWTFBBQ
+	start = value.length();
 
+      end = value.find_first_of(" \t", start);
       if (end > value.length()) // OMGWTFBBQ
 	end = value.length();
 
