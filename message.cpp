@@ -17,7 +17,9 @@ const HeaderModelColumns &Compose::header_model() {
   return *ref_header_model;
 }
 
-Message::Message() {
+Message::Message()
+  : ObjectBase("Message")
+{
   m_ref_headers = Gtk::ListStore::create(header_model());
   m_ref_body_buffer = Gtk::TextBuffer::create();
 }

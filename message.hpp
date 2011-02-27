@@ -16,7 +16,7 @@ namespace Compose {
 
   const HeaderModelColumns &header_model();
 
-  struct Message : public Glib::ObjectBase {
+  struct Message : public Glib::Object {
     Message();
 
     Glib::RefPtr<Gtk::TextBuffer> m_ref_body_buffer;
