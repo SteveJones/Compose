@@ -1,11 +1,15 @@
 #include "message.hpp"
 #include "compose_impl.hpp"
 #include <gtkmm/window.h>
+#include <gtkmm/stock.h>
+#include <algorithm>
 
 using namespace Compose;
 
 ComposeImpl::ComposeImpl(Gtk::Window *parent)
-  : m_parent(parent)
+  : m_parent(parent),
+    m_send_button(Gtk::Stock::OK),
+    m_cancel_button(Gtk::Stock::CANCEL)
 {
   m_parent->set_title("Compose");
   m_parent->set_default_size(500, 650);
@@ -22,13 +26,23 @@ ComposeImpl::ComposeImpl(Gtk::Window *parent)
   m_paned.set_position(200);
   m_box.pack_start(m_paned);
 
+  m_button_box.pack_start(m_cancel_button);
+  m_button_box.pack_start(m_send_button);
+  m_box.pack_start(m_button_box, Gtk::PACK_SHRINK);
+
   m_parent->add(m_box);
   
   m_parent->show_all_children();
+  m_body_view.grab_focus();
 }
 
 void ComposeImpl::set_message(Glib::RefPtr<Message> message) {
   m_ref_message = message;
   m_body_view.set_buffer(m_ref_message->m_ref_body_buffer);
   m_header_view.set_message(message);
+  Glib::ustring sep = "\n-- \n";
+  Gtk::TextBuffer::iterator end = search(m_ref_message->m_ref_body_buffer->begin(),
+					 m_ref_message->m_ref_body_buffer->end(),
+					 sep.begin(), sep.end());
+  m_ref_message->m_ref_body_buffer->place_cursor(end);
 }

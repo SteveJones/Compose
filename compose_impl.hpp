@@ -32,6 +32,9 @@ namespace Compose {
     Gtk::TextView m_body_view;
     Glib::RefPtr<Message> m_ref_message;
     Gtk::Window *m_parent;
+    Gtk::Button m_send_button;
+    Gtk::Button m_cancel_button;
+    Gtk::HBox m_button_box;
   };
 
 }
