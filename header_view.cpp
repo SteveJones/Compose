@@ -10,6 +10,9 @@ HeaderView::HeaderView()
   pimpl = std::auto_ptr<HeaderViewImpl>(new HeaderViewImpl(this));
 }
 
+HeaderView::~HeaderView()
+{}
+
 void HeaderView::set_message(Glib::RefPtr<Message> message) {
   pimpl->set_message(message);
 }

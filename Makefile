@@ -1,4 +1,4 @@
-OBJECTS=compose.o main.o message.o message_printer.o header_view.o header_view_impl.o
+OBJECTS=compose.o main.o message.o message_printer.o header_view.o header_view_impl.o compose_impl.o
 CPP=ccache g++
 CPPFLAGS=`pkg-config gtkmm-2.4 --cflags` -DNDEBUG -O3 -Wall
 LDFLAGS=`pkg-config gtkmm-2.4 --libs`
@@ -9,7 +9,7 @@ compose: $(OBJECTS)
 	$(CPP) $(OBJECTS) -o compose $(LDFLAGS)
 
 %.d: %.cpp 
-	$(CPP) -MM $< -MF $@
+	$(CPP) -MM $< -MF $@ -MT $(@:.d=.o)\ $@\ $(@:.d=.debug.o)
 
 include $(OBJECTS:.o=.d)
 
@@ -21,7 +21,7 @@ clean:
 %.o:
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
-%.debug.o: %.cpp %.o
+%.debug.o:
 	$(CPP) $(DEBUG_CPPFLAGS) -c $< -o $@
 
 compose.debug: $(DEBUG_OBJECTS)

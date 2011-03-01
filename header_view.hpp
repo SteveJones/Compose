@@ -12,6 +12,7 @@ namespace Compose {
   class HeaderView : public Gtk::TreeView {
   public:
     HeaderView();
+    ~HeaderView();
     
     void set_message(Glib::RefPtr<Message>);
 
