@@ -7,13 +7,9 @@ using namespace Compose;
 HeaderViewImpl::HeaderViewImpl(Gtk::TreeView *parent)
   : m_parent(parent)
 {
-  m_ref_value_cell = Gtk::manage(new Gtk::CellRendererText());
-  m_ref_value_cell->property_wrap_mode().set_value(Pango::WRAP_WORD);
-  m_ref_value_cell->property_editable().set_value(true);
   m_parent->append_column("Header", header_model().m_name);
-  m_parent->append_column("Value", *m_ref_value_cell);
-  m_parent->get_column(1)->add_attribute(m_ref_value_cell->property_text(),
-					     header_model().m_value);
+  m_parent->append_column_editable("Value", header_model().m_value);
+  m_ref_value_cell = dynamic_cast<Gtk::CellRendererText *>(m_parent->get_column_cell_renderer(1));
   m_parent->set_headers_visible(false);
 }
 

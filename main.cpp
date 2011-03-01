@@ -36,4 +36,7 @@ int main(int argc, char *argv[]) {
     outfile.flush();
   }
 
+  Glib::Error::register_cleanup();
+  Glib::wrap_register_cleanup();
+  gdk_exit(0);
 }
