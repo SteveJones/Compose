@@ -8,7 +8,7 @@ using namespace Compose;
 
 ComposeImpl::ComposeImpl(Gtk::Window *parent)
   : m_parent(parent),
-    m_send_button(Gtk::Stock::OK),
+    m_send_button("_Send", true),
     m_cancel_button(Gtk::Stock::CANCEL)
 {
   m_parent->set_title("Compose");
@@ -34,6 +34,23 @@ ComposeImpl::ComposeImpl(Gtk::Window *parent)
   
   m_parent->show_all_children();
   m_body_view.grab_focus();
+
+}
+
+void ComposeImpl::on_send_clicked() {
+  m_signal_send.emit(m_ref_message);
+}
+
+void ComposeImpl::on_cancel_clicked() {
+  m_signal_cancel.emit();
+}
+
+sigc::signal<void, Glib::RefPtr<Message> > ComposeImpl::signal_send() {
+  return m_signal_send;
+}
+
+sigc::signal<void> ComposeImpl::signal_cancel() {
+  return m_signal_cancel;
 }
 
 void ComposeImpl::set_message(Glib::RefPtr<Message> message) {

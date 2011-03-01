@@ -23,6 +23,13 @@ namespace Compose {
 
     void set_message(Glib::RefPtr<Message>);
 
+    sigc::signal<void, Glib::RefPtr<Message> > signal_send();
+    sigc::signal<void> signal_cancel();
+
+  protected:
+    virtual void on_send_clicked();
+    virtual void on_cancel_clicked();
+
   private:
     Gtk::ScrolledWindow m_header_window;
     Gtk::ScrolledWindow m_body_window;
@@ -35,6 +42,9 @@ namespace Compose {
     Gtk::Button m_send_button;
     Gtk::Button m_cancel_button;
     Gtk::HBox m_button_box;
+
+    sigc::signal<void, Glib::RefPtr<Message> > m_signal_send;
+    sigc::signal<void> m_signal_cancel;
   };
 
 }
