@@ -8,6 +8,7 @@
 #include <gtkmm/textview.h>
 #include <gtkmm/window.h>
 #include "message.hpp"
+#include "header_view.hpp"
 
 namespace Compose {
   
@@ -22,10 +23,9 @@ namespace Compose {
     Gtk::ScrolledWindow m_body_window;
     Gtk::VPaned m_paned;
     Gtk::VBox m_box;
-    Gtk::TreeView m_header_view;
+    HeaderView m_header_view;
     Gtk::TextView m_body_view;
     Glib::RefPtr<Message> m_ref_message;
-    Gtk::CellRendererText *m_ref_value_cell;
   };
 
 }
