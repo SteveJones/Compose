@@ -23,6 +23,10 @@ namespace Compose {
 
     Glib::RefPtr<Gtk::TextBuffer> m_ref_body_buffer;
     Glib::RefPtr<Gtk::ListStore> m_ref_headers;
+
+    void connect_header_edited(Glib::SignalProxy2<void, const Glib::ustring &, const Glib::ustring &>);
+  private:
+    void on_header_edited(const Glib::ustring &, const Glib::ustring &);
   };
 }
 

@@ -24,3 +24,13 @@ Message::Message()
   m_ref_body_buffer = Gtk::TextBuffer::create();
 }
 
+void Message::connect_header_edited(Glib::SignalProxy2<void, 
+				    const Glib::ustring &, const Glib::ustring &> signal) {
+  signal.connect(sigc::mem_fun(*this, &Message::on_header_edited));
+}
+
+void Message::on_header_edited(const Glib::ustring &path, const Glib::ustring &value) {
+  Gtk::ListStore::iterator row_iter = m_ref_headers->get_iter(path);
+  (*row_iter)[header_model().m_value] = value;
+}
+

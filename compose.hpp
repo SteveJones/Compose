@@ -25,6 +25,7 @@ namespace Compose {
     Gtk::TreeView m_header_view;
     Gtk::TextView m_body_view;
     Glib::RefPtr<Message> m_ref_message;
+    Gtk::CellRendererText *m_ref_value_cell;
   };
 
 }
