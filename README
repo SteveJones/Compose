@@ -1,0 +1,22 @@
+Compose
+=======
+
+A simple app to compose emails. Currently lacking a lot of features
+(including the ability to not crash when given broken mail headers)
+but it works ok with mutt. Possibly useful if you need to compose a
+plaintext email and save it to a file.
+
+TODO
+----
+
+* Create new headers (currently only editing existing ones is
+  possible).
+
+* Better message parsing, specifically all the rules in rfc5332 about
+  handling old and busted mail.
+
+* The ability to hide headers.
+
+* Better sizing of the header pane.
+
+* Mime and all the madness that comes with it.
