@@ -8,12 +8,35 @@
 #include <fstream>
 #include <gtkmm/main.h>
 
+std::string out_file_name;
+Compose::Compose *compose;
+
+void save_message(Glib::RefPtr<Compose::Message> message) {
+  std::ofstream ofs;
+
+  if (out_file_name == "") {
+    std::cout << message;
+    compose->hide();
+    return;
+  }
+  ofs.open(out_file_name.c_str(), std::ios_base::trunc);
+  ofs << message;
+  ofs.flush();
+  ofs.close();
+
+  compose->hide();
+}
+
+void cancel_message() {
+  compose->hide();
+}
+
 int main(int argc, char *argv[]) {
   Gtk::Main kit(argc, argv);
 
-  Compose::Compose compose;
-
   Glib::RefPtr<Compose::Message> message(new Compose::Message());
+
+  compose = new Compose::Compose();
 
   if (argc < 2) {
     std::cin.unsetf(std::ios_base::skipws);
@@ -22,19 +45,14 @@ int main(int argc, char *argv[]) {
     std::ifstream infile(argv[1]);
     infile.unsetf(std::ios_base::skipws);
     parse_message(std::istream_iterator<char>(infile), std::istream_iterator<char>(), message);
+    out_file_name = argv[1];
   }
 
-  compose.set_message(message);
+  compose->set_message(message);
+  compose->signal_send().connect(sigc::ptr_fun(save_message));
+  compose->signal_cancel().connect(sigc::ptr_fun(cancel_message));
 
-  Gtk::Main::run(compose);
-
-  if (argc < 2) {
-    std::cout << message;
-  } else {
-    std::ofstream outfile(argv[1]);
-    outfile << message;
-    outfile.flush();
-  }
+  Gtk::Main::run(*compose);
 
   Glib::Error::register_cleanup();
   Glib::wrap_register_cleanup();
