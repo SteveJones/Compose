@@ -7,6 +7,7 @@
 #include <iostream>
 #include <fstream>
 #include <gtkmm/main.h>
+#include <gtkmm/messagedialog.h>
 
 std::string out_file_name;
 Compose::Compose *compose;
@@ -28,7 +29,20 @@ void save_message(Glib::RefPtr<Compose::Message> message) {
 }
 
 void cancel_message() {
-  compose->hide();
+  Gtk::MessageDialog dialog(*compose,
+			    "Are you sure you want to cancel?", false,
+			    Gtk::MESSAGE_QUESTION,
+			    Gtk::BUTTONS_OK_CANCEL);
+  dialog.set_secondary_text("All changes will be lost.");
+  switch (dialog.run()) {
+  case Gtk::RESPONSE_CANCEL:
+    return;
+  case Gtk::RESPONSE_OK:
+    compose->hide();
+    return;
+  default:
+    std::cerr << "cancel_message: unknown response from Gtk::MessageDialog" << std::endl;
+  }
 }
 
 int main(int argc, char *argv[]) {
