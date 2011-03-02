@@ -22,3 +22,8 @@ sigc::signal<void> Compose::Compose::signal_cancel() {
 void Compose::Compose::set_message(Glib::RefPtr<Message> message) {
   pimpl->set_message(message);
 }
+
+bool Compose::Compose::on_delete_event(GdkEventAny *event) {
+  signal_cancel().emit();
+  return true;
+}

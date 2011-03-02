@@ -20,6 +20,9 @@ namespace Compose {
     sigc::signal<void, Glib::RefPtr<Message> > signal_send();
     sigc::signal<void> signal_cancel();
 
+  protected:
+    bool on_delete_event(GdkEventAny *);
+
   private:
     std::auto_ptr<ComposeImpl> pimpl;
   };
