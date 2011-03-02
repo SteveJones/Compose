@@ -26,7 +26,9 @@ ComposeImpl::ComposeImpl(Gtk::Window *parent)
   m_paned.set_position(200);
   m_box.pack_start(m_paned);
 
+  m_cancel_button.signal_clicked().connect(sigc::mem_fun(*this, &ComposeImpl::on_cancel_clicked));
   m_button_box.pack_start(m_cancel_button);
+  m_send_button.signal_clicked().connect(sigc::mem_fun(*this, &ComposeImpl::on_send_clicked));
   m_button_box.pack_start(m_send_button);
   m_box.pack_start(m_button_box, Gtk::PACK_SHRINK);
 
@@ -34,7 +36,6 @@ ComposeImpl::ComposeImpl(Gtk::Window *parent)
   
   m_parent->show_all_children();
   m_body_view.grab_focus();
-
 }
 
 void ComposeImpl::on_send_clicked() {

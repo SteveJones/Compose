@@ -3,6 +3,7 @@
 
 #include <gtkmm/window.h>
 #include <memory>
+#include <sigc++/signal.h>
 
 namespace Compose {
 
@@ -15,6 +16,9 @@ namespace Compose {
     ~Compose();
 
     void set_message(Glib::RefPtr<Message>);
+
+    sigc::signal<void, Glib::RefPtr<Message> > signal_send();
+    sigc::signal<void> signal_cancel();
 
   private:
     std::auto_ptr<ComposeImpl> pimpl;

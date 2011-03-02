@@ -11,6 +11,14 @@ Compose::Compose::Compose()
 Compose::Compose::~Compose() {
 }
 
+sigc::signal<void, Glib::RefPtr<Compose::Message> > Compose::Compose::signal_send() {
+  return pimpl->signal_send();
+}
+
+sigc::signal<void> Compose::Compose::signal_cancel() {
+  return pimpl->signal_cancel();
+}
+
 void Compose::Compose::set_message(Glib::RefPtr<Message> message) {
   pimpl->set_message(message);
 }
