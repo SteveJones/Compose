@@ -15,6 +15,6 @@ HeaderViewImpl::HeaderViewImpl(Gtk::TreeView *parent)
 
 void HeaderViewImpl::set_message(Glib::RefPtr<Message> message) {
   m_ref_message = message;
-  m_parent->set_model(m_ref_message->m_ref_headers);
+  m_parent->set_model(m_ref_message->m_ref_visible_headers);
   m_ref_message->connect_header_edited(m_ref_value_cell->signal_edited());
 }

@@ -62,6 +62,12 @@ int main(int argc, char *argv[]) {
     out_file_name = argv[1];
   }
 
+  message->set_headers_visible(false);
+  message->set_header_visible("from", true);
+  message->set_header_visible("to", true);
+  message->set_header_visible("reply-to", true);
+  message->set_header_visible("subject", true);
+  message->set_header_visible("cc", true);
   compose->set_message(message);
   compose->signal_send().connect(sigc::ptr_fun(save_message));
   compose->signal_cancel().connect(sigc::ptr_fun(cancel_message));
